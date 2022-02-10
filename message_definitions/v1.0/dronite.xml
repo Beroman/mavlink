@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<mavlink>
+  <include>ardupilotmega.xml</include>
+  <messages>
+      <message id="13000" name="TOTAL_STATUS">
+        <description>Total status of required fields</description>
+        <field type="uint32_t" name="time_boot_ms" units="ms">Timestamp (time since system boot).</field>
+        <field type="float" name="roll" units="rad">Roll angle (-pi..+pi)</field>
+        <field type="float" name="pitch" units="rad">Pitch angle (-pi..+pi)</field>
+        <field type="float" name="yaw" units="rad">Yaw angle (-pi..+pi)</field>
+        <field type="float" name="rollspeed" units="rad/s">Roll angular speed</field>
+        <field type="float" name="pitchspeed" units="rad/s">Pitch angular speed</field>
+        <field type="float" name="yawspeed" units="rad/s">Yaw angular speed</field>
+        <field type="int32_t" name="current_consumed" units="mAh" invalid="-1">Consumed charge, -1: autopilot does not provide consumption estimate</field>
+        <field type="int32_t" name="energy_consumed" units="hJ" invalid="-1">Consumed energy, -1: autopilot does not provide energy consumption estimate</field>
+        <field type="uint16_t" name="voltage_battery" units="mV" invalid="UINT16_MAX">Battery voltage, UINT16_MAX: Voltage not sent by autopilot</field>
+        <field type="int16_t" name="current_battery" units="cA" invalid="-1">Battery current, -1: Current not sent by autopilot</field>
+        <field type="uint8_t" name="battery_id" instance="true">Battery ID</field>
+        <field type="int8_t" name="battery_remaining" units="%" invalid="-1">Remaining battery energy. Values: [0-100], -1: autopilot does not estimate the remaining battery.</field>
+        <field type="int32_t" name="time_remaining" units="s" invalid="0">Remaining battery time, 0: autopilot does not provide remaining battery time estimate</field>
+        <field type="uint32_t" name="onboard_control_sensors_present_extended" enum="MAV_SYS_STATUS_SENSOR_EXTENDED" display="bitmask" print_format="0x%04x">Bitmap showing which onboard controllers and sensors are present. Value of 0: not present. Value of 1: present.</field>
+        <field type="uint32_t" name="onboard_control_sensors_enabled_extended" enum="MAV_SYS_STATUS_SENSOR_EXTENDED" display="bitmask" print_format="0x%04x">Bitmap showing which onboard controllers and sensors are enabled:  Value of 0: not enabled. Value of 1: enabled.</field>
+        <field type="uint32_t" name="onboard_control_sensors_health_extended" enum="MAV_SYS_STATUS_SENSOR_EXTENDED" display="bitmask" print_format="0x%04x">Bitmap showing which onboard controllers and sensors have an error (or are operational). Value of 0: error. Value of 1: healthy.</field>
+        <field type="uint16_t" name="load" units="d%">Maximum usage in percent of the mainloop time. Values: [0-1000] - should always be below 1000</field>
+        <field type="uint64_t" name="time_usec" units="us">Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.</field>
+        <field type="uint8_t" name="fix_type" enum="GPS_FIX_TYPE">GPS fix type.</field>
+        <field type="int32_t" name="lat" units="degE7">Latitude (WGS84, EGM96 ellipsoid)</field>
+        <field type="int32_t" name="lon" units="degE7">Longitude (WGS84, EGM96 ellipsoid)</field>
+        <field type="int32_t" name="alt" units="mm">Altitude (MSL). Positive for up. Note that virtually all GPS modules provide the MSL altitude in addition to the WGS84 altitude.</field>
+        <field type="uint16_t" name="eph" invalid="UINT16_MAX">GPS HDOP horizontal dilution of position (unitless * 100). If unknown, set to: UINT16_MAX</field>
+        <field type="uint16_t" name="epv" invalid="UINT16_MAX">GPS VDOP vertical dilution of position (unitless * 100). If unknown, set to: UINT16_MAX</field>
+        <field type="uint16_t" name="vel" units="cm/s" invalid="UINT16_MAX">GPS ground speed. If unknown, set to: UINT16_MAX</field>
+        <field type="uint16_t" name="cog" units="cdeg" invalid="UINT16_MAX">Course over ground (NOT heading, but direction of movement) in degrees * 100, 0.0..359.99 degrees. If unknown, set to: UINT16_MAX</field>
+        <field type="uint8_t" name="satellites_visible" invalid="UINT8_MAX">Number of satellites visible. If unknown, set to UINT8_MAX</field>
+        <field type="uint32_t" name="h_acc" units="mm">Position uncertainty.</field>
+        <field type="uint32_t" name="v_acc" units="mm">Altitude uncertainty.</field>
+        <field type="uint32_t" name="vel_acc" units="mm">Speed uncertainty.</field>
+        <field type="uint32_t" name="hdg_acc" units="degE5">Heading / track uncertainty</field>
+        <field type="uint8_t" name="type" enum="MAV_TYPE">Vehicle or component type. For a flight controller component the vehicle type (quadrotor, helicopter, etc.). For other components the component type (e.g. camera, gimbal, etc.). This should be used in preference to component id for identifying the component type.</field>
+        <field type="uint8_t" name="autopilot" enum="MAV_AUTOPILOT">Autopilot type / class. Use MAV_AUTOPILOT_INVALID for components that are not flight controllers.</field>
+        <field type="uint8_t" name="base_mode" enum="MAV_MODE_FLAG" display="bitmask">System mode bitmap.</field>
+        <field type="uint32_t" name="custom_mode">A bitfield for use for autopilot-specific flags</field>
+        <field type="uint8_t" name="system_status" enum="MAV_STATE">System status flag.</field>
+        <field type="uint8_t_mavlink_version" name="mavlink_version">MAVLink version, not writable by user, gets added by protocol because of magic data type: uint8_t_mavlink_version</field>
+        <field type="uint8_t" name="rssi" invalid="UINT8_MAX">Local (message sender) recieved signal strength indication in device-dependent units/scale. Values: [0-254], UINT8_MAX: invalid/unknown.</field>
+        <field type="uint8_t" name="remrssi" invalid="UINT8_MAX">Remote (message receiver) signal strength indication in device-dependent units/scale. Values: [0-254], UINT8_MAX: invalid/unknown.</field>
+        <field type="uint8_t" name="txbuf" units="%">Remaining free transmitter buffer space.</field>
+        <field type="uint8_t" name="noise" invalid="UINT8_MAX">Local background noise level. These are device dependent RSSI values (scale as approx 2x dB on SiK radios). Values: [0-254], UINT8_MAX: invalid/unknown.</field>
+        <field type="uint8_t" name="remnoise" invalid="UINT8_MAX">Remote background noise level. These are device dependent RSSI values (scale as approx 2x dB on SiK radios). Values: [0-254], UINT8_MAX: invalid/unknown.</field>
+        <field type="uint16_t" name="rxerrors">Count of radio packet receive errors (since boot).</field>
+        <field type="uint16_t" name="fixed">Count of error corrected radio packets (since boot).</field>
+      </message>
+      <message id="13001" name="SET_LED_RGB">
+        <description>Set RGB color for the Led</description>
+        <field type="uint8_t" name="r">Red</field>
+        <field type="uint8_t" name="g">Green</field>
+        <field type="uint8_t" name="b">Blue</field>
+      </message>
+      <message id="13002" name="REQUEST_CASHED_MESSAGE">
+        <description>Request all the cached messages</description>
+      </message>
+      <message id="13003" name="DID_SEND_ALL_CASHED_MESSAGE">
+        <description>Notify that all the messages are sent</description>
+      </message>
+  </messages>
+</mavlink>
