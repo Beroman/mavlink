@@ -58,6 +58,8 @@
       </message>
       <message id="13002" name="REQUEST_CASHED_MESSAGE">
         <description>Request all the cached messages</description>
+        <field type="uint16_t" name="frequency_hop">Number of frequency hop</field>
+        <field type="uint16_t" name="hop_delay" units="ms">Delay for hop</field>
       </message>
       <message id="13003" name="DID_SEND_ALL_CASHED_MESSAGE">
         <description>Notify that all the messages are sent</description>
